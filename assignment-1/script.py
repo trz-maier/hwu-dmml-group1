@@ -4,13 +4,13 @@ import pandas as pd
 from utilities import *
 
 # opening the csv file (place assignment files in data folder but do not add them to github as they are too large)
-df = pd.read_csv("%s/data/x_train_gr_smpl.csv" % sys.path[0]).astype(int)
+all_data = pd.read_csv("%s/data/x_train_gr_smpl.csv" % sys.path[0]).astype(int)
 
 # add training samples as numpy arrays to a list based on labels, randomize order
 training_samples = []
 for x in range(10):
     index = pd.read_csv("%s/data/y_train_smpl_%s.csv" % (sys.path[0], x), squeeze=True).values.astype(bool)
-    sample = df[[not x for x in index]].to_numpy()
+    sample = all_data[[not x for x in index]].to_numpy()
     np.random.shuffle(sample)
     training_samples.append(sample)
 
