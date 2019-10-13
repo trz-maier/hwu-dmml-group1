@@ -1,46 +1,27 @@
 import numpy as np
 import pandas as pd
-import random
+from utilities import labels
+from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import GaussianNB
 from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
 
-def fit_naive_bayes(input_data: np.array, output_data: np.array):
+def fit_naive_bayes(x: np.array, y: np.array):
 
-    population_size = len(input_data)
-    labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-
-    # set up training data
-    training_size = int(population_size*0.7)
-    training_indexes = random.sample(range(population_size), training_size)
-    training_input = input_data[training_indexes]
-    training_output = output_data[training_indexes]
+    # split data using stratify sampling
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.3, stratify=y)
 
     # train the model
     model = GaussianNB()
-    model.fit(training_input, training_output)
-
-    # set up validation data
-    validation_indexes = [x for x in range(population_size) if x not in training_indexes]
-    validation_input = input_data[validation_indexes]
-    validation_output = output_data[validation_indexes]
+    model.fit(x_train, y_train)
 
     # predict outputs of validation data
-    predictions = model.predict(validation_input)
-    ac = accuracy_score(validation_output, predictions)
-    cm = confusion_matrix(validation_output, predictions)
-    cr = classification_report(validation_output, predictions, target_names=labels)
+    predictions = model.predict(x_test)
+    ac = accuracy_score(y_test, predictions)
+    cm = confusion_matrix(y_test, predictions)
+    cr = classification_report(y_test, predictions, target_names=list(labels.values()))
 
     # print results
-    print("""
-Outcome:
-Naive Bayes correctly predicted the classification for %s of %s signs
-
-Classification report:
-%s
-
-Confusion matrix:
-%s
-    """
-          % (sum(predictions == validation_output), len(validation_output), cr,
-             pd.DataFrame(data=cm, index=labels, columns=labels)))
+    print("Outcome:\nNaive Bayes correctly predicted the classification for %s of %s signs\n" % (sum(predictions == y_test), len(y_test)))
+    print("Classification report:\n%s\n" % cr)
+    print("Confusion matrix:\n%s\n" % pd.DataFrame(data=cm, index=labels, columns=labels))

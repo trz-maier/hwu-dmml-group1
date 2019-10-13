@@ -43,4 +43,4 @@ get_image_from_array(array=input_data[8562]).show()
 
 
 # fit naive bayes and print results
-fit_naive_bayes(input_data, output_data)
+fit_naive_bayes(x=input_data, y=output_data)
