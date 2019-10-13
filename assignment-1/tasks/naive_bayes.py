@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 from sklearn.naive_bayes import GaussianNB
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import confusion_matrix, classification_report, accuracy_score
 
 
 def fit_naive_bayes(input_data: np.array, output_data: np.array):
@@ -27,7 +27,8 @@ def fit_naive_bayes(input_data: np.array, output_data: np.array):
 
     # predict outputs of validation data
     predictions = model.predict(validation_input)
-    cm = pd.DataFrame(data=confusion_matrix(validation_output, predictions), index=labels, columns=labels)
+    ac = accuracy_score(validation_output, predictions)
+    cm = confusion_matrix(validation_output, predictions)
     cr = classification_report(validation_output, predictions, target_names=labels)
 
     # print results
@@ -41,4 +42,5 @@ Classification report:
 Confusion matrix:
 %s
     """
-          % (sum(predictions == validation_output), len(validation_output), cr, cm))
+          % (sum(predictions == validation_output), len(validation_output), cr,
+             pd.DataFrame(data=cm, index=labels, columns=labels)))
