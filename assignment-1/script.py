@@ -1,9 +1,22 @@
 import sys
 import numpy as np
 import pandas as pd
-from sklearn.naive_bayes import GaussianNB
+from tasks import *
 from utilities import *
 
+
+labels = {
+    '0': 'Speed limit 60',
+    '1': 'Speed limit 80',
+    '2': 'Speed limit 80 lifter',
+    '3': 'Right of way at crossing',
+    '4': 'Right of way in general',
+    '5': 'Give way',
+    '6': 'Stop',
+    '7': 'No speed limit general',
+    '8': 'Turn right down',
+    '9': 'Turn left down'
+}
 
 # open csv file
 df = pd.read_csv("%s/data/x_train_gr_smpl.csv" % sys.path[0]).astype(int)
@@ -29,4 +42,5 @@ get_image_from_array(array=input_data[199]).show()
 get_image_from_array(array=input_data[8562]).show()
 
 
-
+# fit naive bayes and print results
+fit_naive_bayes(input_data, output_data)
