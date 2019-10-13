@@ -1,2 +1,2 @@
 from .naive_bayes import fit_naive_bayes
-from .attribute_importance import get_attribute_importance
+from .select_attributes import get_new_feature_set, find_best_attribute_number
