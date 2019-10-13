@@ -1,1 +1,2 @@
 from .naive_bayes import fit_naive_bayes
+from .attribute_importance import get_attribute_importance
