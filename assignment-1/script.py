@@ -20,8 +20,8 @@ for x in range(10):
 df_shuffled = df.sample(frac=1)
 
 # create input/output arrays
-input_data = df.iloc[:, 0:2304].to_numpy()
-output_data = df['label'].to_numpy()
+input_data = df_shuffled.iloc[:, 0:2304].to_numpy()
+output_data = df_shuffled['label'].to_numpy()
 
 # show specific images, different each time you execute above code
 get_image_from_array(array=input_data[3]).show()
