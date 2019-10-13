@@ -11,7 +11,7 @@ df = pd.read_csv("%s/data/x_train_gr_smpl.csv" % sys.path[0]).astype(int)
 # apply image enhancements
 df = df.apply(func=enhance_image)
 
-# add training samples as numpy arrays to a list based on labels, randomize order
+# label data-frame based on sample data
 for x in range(10):
     index = ~pd.read_csv("%s/data/y_train_smpl_%s.csv" % (sys.path[0], x), squeeze=True).astype(bool)
     df.loc[index, 'label'] = str(x)
