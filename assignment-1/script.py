@@ -29,5 +29,6 @@ get_image_from_array(array=random.choice(input_data)).show()
 # fit naive bayes and print results
 fit_naive_bayes(x=input_data, y=output_data)
 
-# find the importance of attributes
-get_attribute_importance(x=input_data, y=output_data)
+# find k most important attributes and use naive bayes again
+input_data_new = get_attribute_importance(x=input_data, y=output_data, k=500)
+fit_naive_bayes(x=input_data_new, y=output_data)
